@@ -9,10 +9,7 @@ import {
 import { useNavigate } from "react-router";
 import { hasRole } from "main/utils/useCurrentUser";
 
-export default function UCSBOrganizationTable({
-  organizations,
-  currentUser,
-}) {
+export default function UCSBOrganizationTable({ organizations, currentUser }) {
   const navigate = useNavigate();
 
   const editCallback = (cell) => {

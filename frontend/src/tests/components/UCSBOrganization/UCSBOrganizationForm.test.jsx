@@ -156,4 +156,3 @@ describe("UCSBOrganizationForm tests", () => {
     await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith(-1));
   });
 });
-
