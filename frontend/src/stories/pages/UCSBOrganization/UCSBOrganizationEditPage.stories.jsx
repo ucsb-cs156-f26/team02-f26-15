@@ -31,8 +31,13 @@ Default.parameters = {
         status: 200,
       });
     }),
-    http.put("/api/UCSBOrganization", () => {
-      return HttpResponse.json({}, { status: 200 });
+    http.put("/api/UCSBOrganization", async ({ request }) => {
+      const url = new URL(request.url);
+      const body = await request.json();
+      return HttpResponse.json(
+        { orgCode: url.searchParams.get("orgCode"), ...body },
+        { status: 200 },
+      );
     }),
   ],
 };
