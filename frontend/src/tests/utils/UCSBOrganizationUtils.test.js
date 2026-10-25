@@ -33,7 +33,7 @@ describe("UCSBOrganizationUtils", () => {
       const result = cellToAxiosParamsDelete(cell);
 
       expect(result).toEqual({
-        url: "/api/ucsborganizations",
+        url: "/api/UCSBOrganization",
         method: "DELETE",
         params: { orgCode: "ZPR" },
       });
