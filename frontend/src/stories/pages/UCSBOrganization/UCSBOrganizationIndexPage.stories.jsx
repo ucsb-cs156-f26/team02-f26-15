@@ -1,17 +1,17 @@
 import React from "react";
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
-import { ucsbDatesFixtures } from "fixtures/ucsbDatesFixtures";
+import { ucsbOrganizationFixtures } from "fixtures/ucsbOrganizationFixtures";
 import { http, HttpResponse } from "msw";
 
-import UCSBDatesIndexPage from "main/pages/UCSBDates/UCSBDatesIndexPage";
+import UCSBOrganizationIndexPage from "main/pages/UCSBOrganization/UCSBOrganizationIndexPage";
 
 export default {
-  title: "pages/UCSBDates/UCSBDatesIndexPage",
-  component: UCSBDatesIndexPage,
+  title: "pages/UCSBOrganization/UCSBOrganizationIndexPage",
+  component: UCSBOrganizationIndexPage,
 };
 
-const Template = () => <UCSBDatesIndexPage storybook={true} />;
+const Template = () => <UCSBOrganizationIndexPage storybook={true} />;
 
 export const Empty = Template.bind({});
 Empty.parameters = {
@@ -26,7 +26,7 @@ Empty.parameters = {
         status: 200,
       });
     }),
-    http.get("/api/ucsbdates/all", () => {
+    http.get("/api/UCSBOrganization/all", () => {
       return HttpResponse.json([], { status: 200 });
     }),
   ],
@@ -42,8 +42,8 @@ ThreeItemsOrdinaryUser.parameters = {
     http.get("/api/systemInfo", () => {
       return HttpResponse.json(systemInfoFixtures.showingNeither);
     }),
-    http.get("/api/ucsbdates/all", () => {
-      return HttpResponse.json(ucsbDatesFixtures.threeDates);
+    http.get("/api/UCSBOrganization/all", () => {
+      return HttpResponse.json(ucsbOrganizationFixtures.threeOrganizations);
     }),
   ],
 };
@@ -58,10 +58,10 @@ ThreeItemsAdminUser.parameters = {
     http.get("/api/systemInfo", () => {
       return HttpResponse.json(systemInfoFixtures.showingNeither);
     }),
-    http.get("/api/ucsbdates/all", () => {
-      return HttpResponse.json(ucsbDatesFixtures.threeDates);
+    http.get("/api/UCSBOrganization/all", () => {
+      return HttpResponse.json(ucsbOrganizationFixtures.threeOrganizations);
     }),
-    http.delete("/api/ucsbdates", () => {
+    http.delete("/api/UCSBOrganization", () => {
       return HttpResponse.json({}, { status: 200 });
     }),
   ],
