@@ -141,16 +141,23 @@ describe("ArticlesTable tests", () => {
       currentUser: currentUserFixtures.adminUser,
     });
 
-    expect(
-      screen.getByTestId(`${testIdPrefix}-cell-row-0-col-Edit-button`),
-    ).toBeInTheDocument();
+    const editButton = screen.getByTestId(
+      `${testIdPrefix}-cell-row-0-col-Edit-button`,
+    );
 
-    expect(
-      screen.getByTestId(`${testIdPrefix}-cell-row-0-col-Delete-button`),
-    ).toBeInTheDocument();
+    const deleteButton = screen.getByTestId(
+      `${testIdPrefix}-cell-row-0-col-Delete-button`,
+    );
+
+    expect(editButton).toBeInTheDocument();
+    expect(deleteButton).toBeInTheDocument();
 
     expect(screen.getAllByRole("button", { name: "Edit" })).toHaveLength(3);
     expect(screen.getAllByRole("button", { name: "Delete" })).toHaveLength(3);
+
+    // Verify button styling to catch mutations of Bootstrap variants.
+    expect(editButton).toHaveClass("btn-primary");
+    expect(deleteButton).toHaveClass("btn-danger");
   });
 
   test("clicking Edit navigates to the correct article edit page", () => {
