@@ -16,6 +16,7 @@ export default function ArticlesIndexPage() {
   } = useBackend(
     // Stryker disable next-line all : don't test internal caching of React Query
     ["/api/articles/all"],
+    // Stryker disable next-line all : GET is the default; an empty method has equivalent behavior
     { method: "GET", url: "/api/articles/all" },
     // Stryker disable next-line all : don't test default value of empty list
     [],
