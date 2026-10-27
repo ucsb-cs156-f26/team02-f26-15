@@ -27,6 +27,10 @@ import UCSBDiningCommonsMenuItemIndexPage from "main/pages/UCSBDiningCommonsMenu
 import UCSBDiningCommonsMenuItemCreatePage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemCreatePage";
 import UCSBDiningCommonsMenuItemEditPage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemEditPage";
 
+import HelpRequestIndexPage from "main/pages/HelpRequest/HelpRequestIndexPage";
+import HelpRequestCreatePage from "main/pages/HelpRequest/HelpRequestCreatePage";
+import HelpRequestEditPage from "main/pages/HelpRequest/HelpRequestEditPage";
+
 import { hasRole, useCurrentUser } from "main/utils/useCurrentUser";
 
 import "bootstrap/dist/css/bootstrap.css";
@@ -167,6 +171,28 @@ function App() {
             exact
             path="/diningcommonsmenuitem/edit/:id"
             element={<UCSBDiningCommonsMenuItemEditPage />}
+          />
+        </>
+      )}
+
+      {/* HelpRequest Routes */}
+      {hasRole(currentUser, "ROLE_USER") && (
+        <>
+          <Route exact path="/helprequest" element={<HelpRequestIndexPage />} />
+        </>
+      )}
+
+      {hasRole(currentUser, "ROLE_ADMIN") && (
+        <>
+          <Route
+            exact
+            path="/helprequest/edit/:id"
+            element={<HelpRequestEditPage />}
+          />
+          <Route
+            exact
+            path="/helprequest/create"
+            element={<HelpRequestCreatePage />}
           />
         </>
       )}
