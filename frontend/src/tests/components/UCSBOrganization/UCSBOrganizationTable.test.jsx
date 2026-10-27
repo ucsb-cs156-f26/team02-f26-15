@@ -133,7 +133,7 @@ describe("UCSBOrganizationTable tests", () => {
   test("Delete button calls delete callback", async () => {
     const axiosMock = new AxiosMockAdapter(axios);
     axiosMock
-      .onDelete("/api/ucsborganizations")
+      .onDelete("/api/UCSBOrganization")
       .reply(200, { message: "Organization deleted" });
 
     renderTable(currentUserFixtures.adminUser);
