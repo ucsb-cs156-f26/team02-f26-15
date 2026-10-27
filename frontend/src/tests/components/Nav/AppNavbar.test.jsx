@@ -178,6 +178,30 @@ describe("AppNavbar tests", () => {
     expect(link.getAttribute("href")).toBe("/ucsbdates");
   });
 
+  test("renders the helprequest link correctly", async () => {
+    const currentUser = currentUserFixtures.userOnly;
+    const systemInfo = systemInfoFixtures.showingBoth;
+
+    const doLogin = vi.fn();
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar
+            currentUser={currentUser}
+            systemInfo={systemInfo}
+            doLogin={doLogin}
+          />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await screen.findByText("HelpRequest");
+    const link = screen.getByText("HelpRequest");
+    expect(link).toBeInTheDocument();
+    expect(link.getAttribute("href")).toBe("/helprequest");
+  });
+
   test("renders the restaurants link correctly", async () => {
     const currentUser = currentUserFixtures.userOnly;
     const systemInfo = systemInfoFixtures.showingBoth;
