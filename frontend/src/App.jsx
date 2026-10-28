@@ -27,10 +27,13 @@ import UCSBDiningCommonsMenuItemIndexPage from "main/pages/UCSBDiningCommonsMenu
 import UCSBDiningCommonsMenuItemCreatePage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemCreatePage";
 import UCSBDiningCommonsMenuItemEditPage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemEditPage";
 
+<<<<<<< HEAD
 import HelpRequestIndexPage from "main/pages/HelpRequest/HelpRequestIndexPage";
 import HelpRequestCreatePage from "main/pages/HelpRequest/HelpRequestCreatePage";
 import HelpRequestEditPage from "main/pages/HelpRequest/HelpRequestEditPage";
 
+=======
+>>>>>>> origin/grace-articles-form
 import { hasRole, useCurrentUser } from "main/utils/useCurrentUser";
 
 import "bootstrap/dist/css/bootstrap.css";
@@ -43,13 +46,13 @@ function App() {
     <Routes>
       <Route exact path="/" element={<HomePage />} />
       <Route exact path="/profile" element={<ProfilePage />} />
+
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <Route exact path="/admin/users" element={<AdminUsersPage />} />
       )}
+
       {hasRole(currentUser, "ROLE_USER") && (
-        <>
-          <Route exact path="/ucsbdates" element={<UCSBDatesIndexPage />} />
-        </>
+        <Route exact path="/ucsbdates" element={<UCSBDatesIndexPage />} />
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
@@ -65,10 +68,9 @@ function App() {
           />
         </>
       )}
+
       {hasRole(currentUser, "ROLE_USER") && (
-        <>
-          <Route exact path="/restaurants" element={<RestaurantIndexPage />} />
-        </>
+        <Route exact path="/restaurants" element={<RestaurantIndexPage />} />
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
@@ -84,7 +86,9 @@ function App() {
           />
         </>
       )}
+
       {hasRole(currentUser, "ROLE_USER") && (
+<<<<<<< HEAD
         <>
           <Route
             exact
@@ -111,6 +115,9 @@ function App() {
         <>
           <Route exact path="/placeholder" element={<PlaceholderIndexPage />} />
         </>
+=======
+        <Route exact path="/placeholder" element={<PlaceholderIndexPage />} />
+>>>>>>> origin/grace-articles-form
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
@@ -129,11 +136,16 @@ function App() {
 
       {/* Articles Routes */}
       {hasRole(currentUser, "ROLE_USER") && (
+<<<<<<< HEAD
         <>
           <Route exact path="/articles" element={<ArticlesIndexPage />} />
         </>
       )}
 
+=======
+        <Route exact path="/articles" element={<ArticlesIndexPage />} />
+      )}
+>>>>>>> origin/grace-articles-form
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
           <Route
@@ -151,6 +163,7 @@ function App() {
 
       {/* UCSBDiningCommonsMenuItem Routes */}
       {hasRole(currentUser, "ROLE_USER") && (
+<<<<<<< HEAD
         <>
           <Route
             exact
@@ -160,6 +173,14 @@ function App() {
         </>
       )}
 
+=======
+        <Route
+          exact
+          path="/diningcommonsmenuitem"
+          element={<UCSBDiningCommonsMenuItemIndexPage />}
+        />
+      )}
+>>>>>>> origin/grace-articles-form
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
           <Route
@@ -174,6 +195,7 @@ function App() {
           />
         </>
       )}
+<<<<<<< HEAD
 
       {/* HelpRequest Routes */}
       {hasRole(currentUser, "ROLE_USER") && (
@@ -196,6 +218,8 @@ function App() {
           />
         </>
       )}
+=======
+>>>>>>> origin/grace-articles-form
     </Routes>
   );
 }
