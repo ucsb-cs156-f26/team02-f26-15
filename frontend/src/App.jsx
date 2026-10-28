@@ -11,6 +11,10 @@ import RestaurantIndexPage from "main/pages/Restaurants/RestaurantIndexPage";
 import RestaurantCreatePage from "main/pages/Restaurants/RestaurantCreatePage";
 import RestaurantEditPage from "main/pages/Restaurants/RestaurantEditPage";
 
+import UCSBOrganizationIndexPage from "main/pages/UCSBOrganization/UCSBOrganizationIndexPage";
+import UCSBOrganizationCreatePage from "main/pages/UCSBOrganization/UCSBOrganizationCreatePage";
+import UCSBOrganizationEditPage from "main/pages/UCSBOrganization/UCSBOrganizationEditPage";
+
 import PlaceholderIndexPage from "main/pages/Placeholder/PlaceholderIndexPage";
 import PlaceholderCreatePage from "main/pages/Placeholder/PlaceholderCreatePage";
 import PlaceholderEditPage from "main/pages/Placeholder/PlaceholderEditPage";
@@ -26,6 +30,10 @@ import UCSBDiningCommonsMenuItemEditPage from "main/pages/UCSBDiningCommonsMenuI
 import HelpRequestIndexPage from "main/pages/HelpRequest/HelpRequestIndexPage";
 import HelpRequestCreatePage from "main/pages/HelpRequest/HelpRequestCreatePage";
 import HelpRequestEditPage from "main/pages/HelpRequest/HelpRequestEditPage";
+
+import RecommendationRequestIndexPage from "main/pages/RecommendationRequests/RecommendationRequestIndexPage";
+import RecommendationRequestCreatePage from "main/pages/RecommendationRequests/RecommendationRequestCreatePage";
+import RecommendationRequestEditPage from "main/pages/RecommendationRequests/RecommendationRequestEditPage";
 
 import { hasRole, useCurrentUser } from "main/utils/useCurrentUser";
 
@@ -79,6 +87,29 @@ function App() {
           />
         </>
       )}
+
+      {hasRole(currentUser, "ROLE_USER") && (
+        <Route
+          exact
+          path="/ucsborganizations"
+          element={<UCSBOrganizationIndexPage />}
+        />
+      )}
+      {hasRole(currentUser, "ROLE_ADMIN") && (
+        <>
+          <Route
+            exact
+            path="/ucsborganizations/edit/:orgCode"
+            element={<UCSBOrganizationEditPage />}
+          />
+          <Route
+            exact
+            path="/ucsborganizations/create"
+            element={<UCSBOrganizationCreatePage />}
+          />
+        </>
+      )}
+
       {hasRole(currentUser, "ROLE_USER") && (
         <Route exact path="/placeholder" element={<PlaceholderIndexPage />} />
       )}
@@ -97,13 +128,9 @@ function App() {
         </>
       )}
 
-      {/* Articles Routes */}
       {hasRole(currentUser, "ROLE_USER") && (
-        <>
-          <Route exact path="/articles" element={<ArticlesIndexPage />} />
-        </>
+        <Route exact path="/articles" element={<ArticlesIndexPage />} />
       )}
-
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
           <Route
@@ -119,17 +146,13 @@ function App() {
         </>
       )}
 
-      {/* UCSBDiningCommonsMenuItem Routes */}
       {hasRole(currentUser, "ROLE_USER") && (
-        <>
-          <Route
-            exact
-            path="/diningcommonsmenuitem"
-            element={<UCSBDiningCommonsMenuItemIndexPage />}
-          />
-        </>
+        <Route
+          exact
+          path="/diningcommonsmenuitem"
+          element={<UCSBDiningCommonsMenuItemIndexPage />}
+        />
       )}
-
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
           <Route
@@ -145,13 +168,9 @@ function App() {
         </>
       )}
 
-      {/* HelpRequest Routes */}
       {hasRole(currentUser, "ROLE_USER") && (
-        <>
-          <Route exact path="/helprequest" element={<HelpRequestIndexPage />} />
-        </>
+        <Route exact path="/helprequest" element={<HelpRequestIndexPage />} />
       )}
-
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
           <Route
@@ -163,6 +182,28 @@ function App() {
             exact
             path="/helprequest/create"
             element={<HelpRequestCreatePage />}
+          />
+        </>
+      )}
+
+      {hasRole(currentUser, "ROLE_USER") && (
+        <Route
+          exact
+          path="/recommendationrequest"
+          element={<RecommendationRequestIndexPage />}
+        />
+      )}
+      {hasRole(currentUser, "ROLE_ADMIN") && (
+        <>
+          <Route
+            exact
+            path="/recommendationrequest/edit/:id"
+            element={<RecommendationRequestEditPage />}
+          />
+          <Route
+            exact
+            path="/recommendationrequest/create"
+            element={<RecommendationRequestCreatePage />}
           />
         </>
       )}
