@@ -26,6 +26,12 @@ describe("AppNavbar tests", () => {
     expect(
       screen.getByText("Welcome, pconrad.cis@gmail.com"),
     ).toBeInTheDocument();
+    const menuItemsLink = screen.getByRole("link", {
+      name: "Dining Commons Menu Items",
+    });
+
+    expect(menuItemsLink).toBeInTheDocument();
+    expect(menuItemsLink).toHaveAttribute("href", "/diningcommonsmenuitem");
   });
 
   test("renders correctly for admin user", async () => {
@@ -43,6 +49,9 @@ describe("AppNavbar tests", () => {
     await screen.findByText("Welcome, phtcon@ucsb.edu");
     const adminMenu = screen.getByTestId("appnavbar-admin-dropdown");
     expect(adminMenu).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "Dining Commons Menu Items" }),
+    ).toHaveAttribute("href", "/diningcommonsmenuitem");
   });
 
   test("renders H2Console and Swagger links correctly", async () => {
@@ -169,6 +178,30 @@ describe("AppNavbar tests", () => {
     expect(link.getAttribute("href")).toBe("/ucsbdates");
   });
 
+  test("renders the helprequest link correctly", async () => {
+    const currentUser = currentUserFixtures.userOnly;
+    const systemInfo = systemInfoFixtures.showingBoth;
+
+    const doLogin = vi.fn();
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <AppNavbar
+            currentUser={currentUser}
+            systemInfo={systemInfo}
+            doLogin={doLogin}
+          />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await screen.findByText("HelpRequest");
+    const link = screen.getByText("HelpRequest");
+    expect(link).toBeInTheDocument();
+    expect(link.getAttribute("href")).toBe("/helprequest");
+  });
+
   test("renders the restaurants link correctly", async () => {
     const currentUser = currentUserFixtures.userOnly;
     const systemInfo = systemInfoFixtures.showingBoth;
@@ -193,7 +226,7 @@ describe("AppNavbar tests", () => {
     expect(link.getAttribute("href")).toBe("/restaurants");
   });
 
-  test("Restaurant and UCSBDates links do NOT show when not logged in", async () => {
+  test("navigation links do NOT show when not logged in", async () => {
     const currentUser = null;
     const systemInfo = systemInfoFixtures.showingBoth;
     const doLogin = vi.fn();
@@ -212,6 +245,9 @@ describe("AppNavbar tests", () => {
 
     expect(screen.queryByText("Restaurants")).not.toBeInTheDocument();
     expect(screen.queryByText("UCSBDates")).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("link", { name: "Dining Commons Menu Items" }),
+    ).not.toBeInTheDocument();
   });
 
   test("when oauthlogin undefined, default value is used", async () => {
