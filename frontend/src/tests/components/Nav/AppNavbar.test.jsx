@@ -26,6 +26,9 @@ describe("AppNavbar tests", () => {
     expect(
       screen.getByText("Welcome, pconrad.cis@gmail.com"),
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "MenuItemReview" }),
+    ).toHaveAttribute("href", "/menuitemreview");
     const menuItemsLink = screen.getByRole("link", {
       name: "Dining Commons Menu Items",
     });
@@ -219,6 +222,9 @@ describe("AppNavbar tests", () => {
       </QueryClientProvider>,
     );
 
+    expect(
+      screen.queryByRole("link", { name: "MenuItemReview" }),
+    ).not.toBeInTheDocument();
     expect(screen.queryByText("Restaurants")).not.toBeInTheDocument();
     expect(screen.queryByText("UCSBDates")).not.toBeInTheDocument();
     expect(
