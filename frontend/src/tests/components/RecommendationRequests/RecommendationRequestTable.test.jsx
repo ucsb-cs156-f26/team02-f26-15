@@ -137,7 +137,7 @@ describe("RecommendationRequestTable tests", () => {
 
     await waitFor(() =>
       expect(mockedNavigate).toHaveBeenCalledWith(
-        "/recommendationrequests/edit/1",
+        "/recommendationrequest/edit/1",
       ),
     );
   });
