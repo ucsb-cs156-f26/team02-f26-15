@@ -1,48 +1,126 @@
-import { render, screen } from "@testing-library/react";
-import MenuItemReviewCreatePage from "main/pages/MenuItemReview/MenuItemReviewCreatePage";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter } from "react-router";
-
-import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
-import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
-import { expect } from "vitest";
+import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
+import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
+import MenuItemReviewCreatePage from "main/pages/MenuItemReview/MenuItemReviewCreatePage";
 
-describe("MenuItemReviewCreatePage tests", () => {
+const mockToast = vi.fn();
+const mockNavigate = vi.fn();
+vi.mock("react-toastify", async (importOriginal) => ({
+  ...(await importOriginal()),
+  toast: (...args) => mockToast(...args),
+}));
+vi.mock("react-router", async (importOriginal) => ({
+  ...(await importOriginal()),
+  Navigate: (props) => {
+    mockNavigate(props);
+    return null;
+  },
+}));
+
+describe("MenuItemReviewCreatePage", () => {
   const axiosMock = new AxiosMockAdapter(axios);
-
-  const setupUserOnly = () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
     axiosMock.reset();
-    axiosMock.resetHistory();
     axiosMock
       .onGet("/api/currentUser")
-      .reply(200, apiCurrentUserFixtures.userOnly);
+      .reply(200, apiCurrentUserFixtures.adminUser);
     axiosMock
       .onGet("/api/systemInfo")
       .reply(200, systemInfoFixtures.showingNeither);
-  };
+  });
+  afterAll(() => axiosMock.restore());
 
-  const queryClient = new QueryClient();
-  test("Renders expected content", async () => {
-    // arrange
-
-    setupUserOnly();
-
-    // act
+  const renderPage = (props = {}) =>
     render(
-      <QueryClientProvider client={queryClient}>
+      <QueryClientProvider
+        client={
+          new QueryClient({ defaultOptions: { queries: { retry: false } } })
+        }
+      >
         <MemoryRouter>
-          <MenuItemReviewCreatePage />
+          <MenuItemReviewCreatePage {...props} />
         </MemoryRouter>
       </QueryClientProvider>,
     );
+  const fillForm = () => {
+    fireEvent.change(screen.getByLabelText("Menu item ID"), {
+      target: { value: "7" },
+    });
+    fireEvent.change(screen.getByLabelText("Reviewer email"), {
+      target: { value: "reviewer@example.com" },
+    });
+    fireEvent.change(screen.getByLabelText("Stars"), {
+      target: { value: "5" },
+    });
+    fireEvent.change(screen.getByLabelText("Date reviewed"), {
+      target: { value: "2026-10-20T18:00" },
+    });
+    fireEvent.change(screen.getByLabelText("Comments"), {
+      target: { value: "Fresh and tasty" },
+    });
+  };
 
-    // assert
+  test("submits all fields to the backend and redirects on success", async () => {
+    axiosMock.onPost("/api/MenuItemReview/post").reply(200, { id: 42 });
+    renderPage();
+    fillForm();
+    fireEvent.click(screen.getByRole("button", { name: "Create" }));
+    await waitFor(() =>
+      expect(mockNavigate).toHaveBeenCalledWith({ to: "/menuitemreview" }),
+    );
+    expect(axiosMock.history.post).toHaveLength(1);
+    expect(axiosMock.history.post[0].params).toEqual({
+      itemId: 7,
+      reviewerEmail: "reviewer@example.com",
+      stars: 5,
+      dateReviewed: "2026-10-20T18:00",
+      comments: "Fresh and tasty",
+    });
+    expect(mockToast).toHaveBeenCalledWith(
+      "New menu item review created - id: 42",
+    );
+  });
 
-    await screen.findByText("Create page not yet implemented");
+  test("invalid fields show errors without sending a request", async () => {
+    renderPage();
+    fireEvent.click(screen.getByRole("button", { name: "Create" }));
     expect(
-      screen.getByText("Create page not yet implemented"),
+      await screen.findByText("Menu item ID is required."),
     ).toBeInTheDocument();
+    expect(screen.getByText("Reviewer email is required.")).toBeInTheDocument();
+    expect(axiosMock.history.post).toHaveLength(0);
+    expect(mockNavigate).not.toHaveBeenCalled();
+  });
+
+  test("storybook keeps the page visible after a successful submission", async () => {
+    axiosMock.onPost("/api/MenuItemReview/post").reply(200, { id: 42 });
+    renderPage({ storybook: true });
+    fillForm();
+    fireEvent.click(screen.getByRole("button", { name: "Create" }));
+    await waitFor(() =>
+      expect(mockToast).toHaveBeenCalledWith(
+        "New menu item review created - id: 42",
+      ),
+    );
+    expect(mockNavigate).not.toHaveBeenCalled();
+    expect(
+      screen.getByRole("heading", { name: "Create New Menu Item Review" }),
+    ).toBeInTheDocument();
+  });
+
+  test("backend errors do not redirect", async () => {
+    axiosMock.onPost("/api/MenuItemReview/post").reply(500);
+    renderPage();
+    fillForm();
+    fireEvent.click(screen.getByRole("button", { name: "Create" }));
+    await waitFor(() =>
+      expect(mockToast).toHaveBeenCalledWith(expect.stringContaining("500")),
+    );
+    expect(mockNavigate).not.toHaveBeenCalled();
   });
 });
