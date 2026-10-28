@@ -16,9 +16,7 @@ export default function MenuItemReviewIndexPage() {
     <BasicLayout>
       <div className="pt-2">
         {hasRole(currentUser, "ROLE_ADMIN") && (
-          <Button href="/menuitemreview/create">
-            Create Menu Item Review
-          </Button>
+          <Button href="/menuitemreview/create">Create Menu Item Review</Button>
         )}
         <h1>Menu Item Reviews</h1>
         <MenuItemReviewTable
