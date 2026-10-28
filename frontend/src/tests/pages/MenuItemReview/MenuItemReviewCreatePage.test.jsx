@@ -35,13 +35,14 @@ describe("MenuItemReviewCreatePage", () => {
   });
   afterAll(() => axiosMock.restore());
 
-  const renderPage = (props = {}) =>
+  const renderPage = (
+    props = {},
+    queryClient = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    }),
+  ) =>
     render(
-      <QueryClientProvider
-        client={
-          new QueryClient({ defaultOptions: { queries: { retry: false } } })
-        }
-      >
+      <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <MenuItemReviewCreatePage {...props} />
         </MemoryRouter>
@@ -84,6 +85,24 @@ describe("MenuItemReviewCreatePage", () => {
     expect(mockToast).toHaveBeenCalledWith(
       "New menu item review created - id: 42",
     );
+  });
+
+  test("refreshes cached reviews after a review is created", async () => {
+    const queryClient = new QueryClient();
+    const reviewListKey = ["/api/MenuItemReview/all"];
+    const unrelatedKey = ["/api/restaurants/all"];
+    queryClient.setQueryData(reviewListKey, [{ id: 1 }]);
+    queryClient.setQueryData(unrelatedKey, [{ id: 2 }]);
+    axiosMock.onPost("/api/MenuItemReview/post").reply(200, { id: 42 });
+
+    renderPage({}, queryClient);
+    fillForm();
+    fireEvent.click(screen.getByRole("button", { name: "Create" }));
+
+    await waitFor(() =>
+      expect(queryClient.getQueryState(reviewListKey).isInvalidated).toBe(true),
+    );
+    expect(queryClient.getQueryState(unrelatedKey).isInvalidated).toBe(false);
   });
 
   test("invalid fields show errors without sending a request", async () => {
