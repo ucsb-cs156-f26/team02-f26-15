@@ -1,13 +1,4 @@
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-<<<<<<< HEAD
-
-export default function ArticlesCreatePage() {
-  // Stryker disable all : placeholder for future implementation
-  return (
-    <BasicLayout>
-      <div className="pt-2">
-        <h1>Create page not yet implemented</h1>
-=======
 import ArticlesForm from "main/components/Articles/ArticlesForm";
 import { Navigate } from "react-router";
 import { useBackendMutation } from "main/utils/useBackend";
@@ -52,7 +43,18 @@ export default function ArticlesCreatePage({ storybook = false }) {
       <div className="pt-2">
         <h1>Create New Article</h1>
         <ArticlesForm submitAction={onSubmit} />
->>>>>>> origin/grace-articles-form
+      </div>
+    </BasicLayout>
+  );
+}
+import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
+
+export default function ArticlesCreatePage() {
+  // Stryker disable all : placeholder for future implementation
+  return (
+    <BasicLayout>
+      <div className="pt-2">
+        <h1>Create page not yet implemented</h1>
       </div>
     </BasicLayout>
   );

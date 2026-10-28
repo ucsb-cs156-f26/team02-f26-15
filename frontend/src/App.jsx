@@ -19,21 +19,6 @@ import PlaceholderIndexPage from "main/pages/Placeholder/PlaceholderIndexPage";
 import PlaceholderCreatePage from "main/pages/Placeholder/PlaceholderCreatePage";
 import PlaceholderEditPage from "main/pages/Placeholder/PlaceholderEditPage";
 
-import ArticlesIndexPage from "main/pages/Articles/ArticlesIndexPage";
-import ArticlesCreatePage from "main/pages/Articles/ArticlesCreatePage";
-import ArticlesEditPage from "main/pages/Articles/ArticlesEditPage";
-
-import UCSBDiningCommonsMenuItemIndexPage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemIndexPage";
-import UCSBDiningCommonsMenuItemCreatePage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemCreatePage";
-import UCSBDiningCommonsMenuItemEditPage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemEditPage";
-
-<<<<<<< HEAD
-import HelpRequestIndexPage from "main/pages/HelpRequest/HelpRequestIndexPage";
-import HelpRequestCreatePage from "main/pages/HelpRequest/HelpRequestCreatePage";
-import HelpRequestEditPage from "main/pages/HelpRequest/HelpRequestEditPage";
-
-=======
->>>>>>> origin/grace-articles-form
 import { hasRole, useCurrentUser } from "main/utils/useCurrentUser";
 
 import "bootstrap/dist/css/bootstrap.css";
@@ -86,38 +71,8 @@ function App() {
           />
         </>
       )}
-
       {hasRole(currentUser, "ROLE_USER") && (
-<<<<<<< HEAD
-        <>
-          <Route
-            exact
-            path="/ucsborganizations"
-            element={<UCSBOrganizationIndexPage />}
-          />
-        </>
-      )}
-      {hasRole(currentUser, "ROLE_ADMIN") && (
-        <>
-          <Route
-            exact
-            path="/ucsborganizations/edit/:orgCode"
-            element={<UCSBOrganizationEditPage />}
-          />
-          <Route
-            exact
-            path="/ucsborganizations/create"
-            element={<UCSBOrganizationCreatePage />}
-          />
-        </>
-      )}
-      {hasRole(currentUser, "ROLE_USER") && (
-        <>
-          <Route exact path="/placeholder" element={<PlaceholderIndexPage />} />
-        </>
-=======
         <Route exact path="/placeholder" element={<PlaceholderIndexPage />} />
->>>>>>> origin/grace-articles-form
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
@@ -133,93 +88,6 @@ function App() {
           />
         </>
       )}
-
-      {/* Articles Routes */}
-      {hasRole(currentUser, "ROLE_USER") && (
-<<<<<<< HEAD
-        <>
-          <Route exact path="/articles" element={<ArticlesIndexPage />} />
-        </>
-      )}
-
-=======
-        <Route exact path="/articles" element={<ArticlesIndexPage />} />
-      )}
->>>>>>> origin/grace-articles-form
-      {hasRole(currentUser, "ROLE_ADMIN") && (
-        <>
-          <Route
-            exact
-            path="/articles/create"
-            element={<ArticlesCreatePage />}
-          />
-          <Route
-            exact
-            path="/articles/edit/:id"
-            element={<ArticlesEditPage />}
-          />
-        </>
-      )}
-
-      {/* UCSBDiningCommonsMenuItem Routes */}
-      {hasRole(currentUser, "ROLE_USER") && (
-<<<<<<< HEAD
-        <>
-          <Route
-            exact
-            path="/diningcommonsmenuitem"
-            element={<UCSBDiningCommonsMenuItemIndexPage />}
-          />
-        </>
-      )}
-
-=======
-        <Route
-          exact
-          path="/diningcommonsmenuitem"
-          element={<UCSBDiningCommonsMenuItemIndexPage />}
-        />
-      )}
->>>>>>> origin/grace-articles-form
-      {hasRole(currentUser, "ROLE_ADMIN") && (
-        <>
-          <Route
-            exact
-            path="/diningcommonsmenuitem/create"
-            element={<UCSBDiningCommonsMenuItemCreatePage />}
-          />
-          <Route
-            exact
-            path="/diningcommonsmenuitem/edit/:id"
-            element={<UCSBDiningCommonsMenuItemEditPage />}
-          />
-        </>
-      )}
-<<<<<<< HEAD
-
-      {/* HelpRequest Routes */}
-      {hasRole(currentUser, "ROLE_USER") && (
-        <>
-          <Route exact path="/helprequest" element={<HelpRequestIndexPage />} />
-        </>
-      )}
-
-      {hasRole(currentUser, "ROLE_ADMIN") && (
-        <>
-          <Route
-            exact
-            path="/helprequest/edit/:id"
-            element={<HelpRequestEditPage />}
-          />
-          <Route
-            exact
-            path="/helprequest/create"
-            element={<HelpRequestCreatePage />}
-          />
-        </>
-      )}
-=======
->>>>>>> origin/grace-articles-form
     </Routes>
   );
 }
