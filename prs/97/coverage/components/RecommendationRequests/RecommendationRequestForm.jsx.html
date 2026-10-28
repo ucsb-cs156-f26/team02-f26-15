@@ -235,7 +235,12 @@
 <a name='L170'></a><a href='#L170'>170</a>
 <a name='L171'></a><a href='#L171'>171</a>
 <a name='L172'></a><a href='#L172'>172</a>
-<a name='L173'></a><a href='#L173'>173</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -262,6 +267,10 @@
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -407,186 +416,192 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Button, Form, Row, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 &nbsp;
 function RecommendationRequestForm({
-    initialContents,
-    submitAction,
-    buttonLabel = "Create",
+  initialContents,
+  submitAction,
+  buttonLabel = "Create",
 }) {
-    // Stryker disable all
-    const {
-        register,
-        formState: { errors },
-        handleSubmit,
-    } = useForm({ defaultValues: initialContents || {} });
-    // Stryker restore all
+  // Stryker disable all
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({ defaultValues: initialContents || {} });
+  // Stryker restore all
 &nbsp;
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 &nbsp;
-    // Stryker disable Regex
-    const isodate_regex =
-        /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/i;
-    // Stryker restore Regex
+  // Stryker disable Regex
+  const isodate_regex =
+    /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/i;
+  // Stryker restore Regex
 &nbsp;
-    const testIdPrefix = "RecommendationRequestForm";
+  const testIdPrefix = "RecommendationRequestForm";
 &nbsp;
-    return (
-        &lt;Form onSubmit={handleSubmit(submitAction)}&gt;
-            &lt;Row&gt;
-                {initialContents &amp;&amp; (
-                    &lt;Col&gt;
-                        &lt;Form.Group className="mb-3"&gt;
-                            &lt;Form.Label htmlFor="id"&gt;Id&lt;/Form.Label&gt;
-                            &lt;Form.Control
-                                data-testid={testIdPrefix + "-id"}
-                                id="id"
-                                type="text"
-                                {...register("id")}
-                                value={initialContents.id}
-                                disabled
-                            /&gt;
-                        &lt;/Form.Group&gt;
-                    &lt;/Col&gt;
-                )}
+  return (
+    &lt;Form onSubmit={handleSubmit(submitAction)}&gt;
+      &lt;Row&gt;
+        {initialContents &amp;&amp; (
+          &lt;Col&gt;
+            &lt;Form.Group className="mb-3"&gt;
+              &lt;Form.Label htmlFor="id"&gt;Id&lt;/Form.Label&gt;
+              &lt;Form.Control
+                data-testid={testIdPrefix + "-id"}
+                id="id"
+                type="text"
+                {...register("id")}
+                value={initialContents.id}
+                disabled
+              /&gt;
+            &lt;/Form.Group&gt;
+          &lt;/Col&gt;
+        )}
 &nbsp;
-                &lt;Col&gt;
-                    &lt;Form.Group className="mb-3"&gt;
-                        &lt;Form.Label htmlFor="requesterEmail"&gt;Requester Email&lt;/Form.Label&gt;
-                        &lt;Form.Control
-                            data-testid={testIdPrefix + "-requesterEmail"}
-                            id="requesterEmail"
-                            type="text"
-                            isInvalid={Boolean(errors.requesterEmail)}
-                            {...register("requesterEmail", {
-                                required: "Requester Email is required.",
-                            })}
-                        /&gt;
-                        &lt;Form.Control.Feedback type="invalid"&gt;
-                            {errors.requesterEmail?.message}
-                        &lt;/Form.Control.Feedback&gt;
-                    &lt;/Form.Group&gt;
-                &lt;/Col&gt;
+        &lt;Col&gt;
+          &lt;Form.Group className="mb-3"&gt;
+            &lt;Form.Label htmlFor="requesterEmail"&gt;Requester Email&lt;/Form.Label&gt;
+            &lt;Form.Control
+              data-testid={testIdPrefix + "-requesterEmail"}
+              id="requesterEmail"
+              type="text"
+              isInvalid={Boolean(errors.requesterEmail)}
+              {...register("requesterEmail", {
+                required: "Requester Email is required.",
+              })}
+            /&gt;
+            &lt;Form.Control.Feedback type="invalid"&gt;
+              {errors.requesterEmail?.message}
+            &lt;/Form.Control.Feedback&gt;
+          &lt;/Form.Group&gt;
+        &lt;/Col&gt;
 &nbsp;
-                &lt;Col&gt;
-                    &lt;Form.Group className="mb-3"&gt;
-                        &lt;Form.Label htmlFor="professorEmail"&gt;Professor Email&lt;/Form.Label&gt;
-                        &lt;Form.Control
-                            data-testid={testIdPrefix + "-professorEmail"}
-                            id="professorEmail"
-                            type="text"
-                            isInvalid={Boolean(errors.professorEmail)}
-                            {...register("professorEmail", {
-                                required: "Professor Email is required.",
-                            })}
-                        /&gt;
-                        &lt;Form.Control.Feedback type="invalid"&gt;
-                            {errors.professorEmail?.message}
-                        &lt;/Form.Control.Feedback&gt;
-                    &lt;/Form.Group&gt;
-                &lt;/Col&gt;
-            &lt;/Row&gt;
+        &lt;Col&gt;
+          &lt;Form.Group className="mb-3"&gt;
+            &lt;Form.Label htmlFor="professorEmail"&gt;Professor Email&lt;/Form.Label&gt;
+            &lt;Form.Control
+              data-testid={testIdPrefix + "-professorEmail"}
+              id="professorEmail"
+              type="text"
+              isInvalid={Boolean(errors.professorEmail)}
+              {...register("professorEmail", {
+                required: "Professor Email is required.",
+              })}
+            /&gt;
+            &lt;Form.Control.Feedback type="invalid"&gt;
+              {errors.professorEmail?.message}
+            &lt;/Form.Control.Feedback&gt;
+          &lt;/Form.Group&gt;
+        &lt;/Col&gt;
+      &lt;/Row&gt;
 &nbsp;
-            &lt;Row&gt;
-                &lt;Col&gt;
-                    &lt;Form.Group className="mb-3"&gt;
-                        &lt;Form.Label htmlFor="explanation"&gt;Explanation&lt;/Form.Label&gt;
-                        &lt;Form.Control
-                            data-testid={testIdPrefix + "-explanation"}
-                            id="explanation"
-                            type="text"
-                            isInvalid={Boolean(errors.explanation)}
-                            {...register("explanation", {
-                                required: "Explanation is required.",
-                            })}
-                        /&gt;
-                        &lt;Form.Control.Feedback type="invalid"&gt;
-                            {errors.explanation?.message}
-                        &lt;/Form.Control.Feedback&gt;
-                    &lt;/Form.Group&gt;
-                &lt;/Col&gt;
-            &lt;/Row&gt;
+      &lt;Row&gt;
+        &lt;Col&gt;
+          &lt;Form.Group className="mb-3"&gt;
+            &lt;Form.Label htmlFor="explanation"&gt;Explanation&lt;/Form.Label&gt;
+            &lt;Form.Control
+              data-testid={testIdPrefix + "-explanation"}
+              id="explanation"
+              type="text"
+              isInvalid={Boolean(errors.explanation)}
+              {...register("explanation", {
+                required: "Explanation is required.",
+              })}
+            /&gt;
+            &lt;Form.Control.Feedback type="invalid"&gt;
+              {errors.explanation?.message}
+            &lt;/Form.Control.Feedback&gt;
+          &lt;/Form.Group&gt;
+        &lt;/Col&gt;
+      &lt;/Row&gt;
 &nbsp;
-            &lt;Row&gt;
-                &lt;Col&gt;
-                    &lt;Form.Group className="mb-3"&gt;
-                        &lt;Form.Label htmlFor="dateRequested"&gt;Date Requested (iso format)&lt;/Form.Label&gt;
-                        &lt;Form.Control
-                            data-testid={testIdPrefix + "-dateRequested"}
-                            id="dateRequested"
-                            type="datetime-local"
-                            isInvalid={Boolean(errors.dateRequested)}
-                            {...register("dateRequested", {
-                                required: "Date Requested is required.",
-                                pattern: isodate_regex,
-                            })}
-                        /&gt;
-                        &lt;Form.Control.Feedback type="invalid"&gt;
-                            {errors.dateRequested?.message}
-                        &lt;/Form.Control.Feedback&gt;
-                    &lt;/Form.Group&gt;
-                &lt;/Col&gt;
+      &lt;Row&gt;
+        &lt;Col&gt;
+          &lt;Form.Group className="mb-3"&gt;
+            &lt;Form.Label htmlFor="dateRequested"&gt;
+              Date Requested (iso format)
+            &lt;/Form.Label&gt;
+            &lt;Form.Control
+              data-testid={testIdPrefix + "-dateRequested"}
+              id="dateRequested"
+              type="datetime-local"
+              isInvalid={Boolean(errors.dateRequested)}
+              {...register("dateRequested", {
+                required: "Date Requested is required.",
+                pattern: isodate_regex,
+              })}
+            /&gt;
+            &lt;Form.Control.Feedback type="invalid"&gt;
+              {errors.dateRequested?.message}
+            &lt;/Form.Control.Feedback&gt;
+          &lt;/Form.Group&gt;
+        &lt;/Col&gt;
 &nbsp;
-                &lt;Col&gt;
-                    &lt;Form.Group className="mb-3"&gt;
-                        &lt;Form.Label htmlFor="dateNeeded"&gt;Date Needed (iso format)&lt;/Form.Label&gt;
-                        &lt;Form.Control
-                            data-testid={testIdPrefix + "-dateNeeded"}
-                            id="dateNeeded"
-                            type="datetime-local"
-                            isInvalid={Boolean(errors.dateNeeded)}
-                            {...register("dateNeeded", {
-                                required: "Date Needed is required.",
-                                pattern: isodate_regex,
-                            })}
-                        /&gt;
-                        &lt;Form.Control.Feedback type="invalid"&gt;
-                            {errors.dateNeeded?.message}
-                        &lt;/Form.Control.Feedback&gt;
-                    &lt;/Form.Group&gt;
-                &lt;/Col&gt;
+        &lt;Col&gt;
+          &lt;Form.Group className="mb-3"&gt;
+            &lt;Form.Label htmlFor="dateNeeded"&gt;
+              Date Needed (iso format)
+            &lt;/Form.Label&gt;
+            &lt;Form.Control
+              data-testid={testIdPrefix + "-dateNeeded"}
+              id="dateNeeded"
+              type="datetime-local"
+              isInvalid={Boolean(errors.dateNeeded)}
+              {...register("dateNeeded", {
+                required: "Date Needed is required.",
+                pattern: isodate_regex,
+              })}
+            /&gt;
+            &lt;Form.Control.Feedback type="invalid"&gt;
+              {errors.dateNeeded?.message}
+            &lt;/Form.Control.Feedback&gt;
+          &lt;/Form.Group&gt;
+        &lt;/Col&gt;
 &nbsp;
-                &lt;Col&gt;
-                    &lt;Form.Group className="mb-3"&gt;
-                        &lt;Form.Label htmlFor="done"&gt;Done&lt;/Form.Label&gt;
-                        &lt;Form.Check
-                            data-testid={testIdPrefix + "-done"}
-                            id="done"
-                            type="checkbox"
-                            {...register("done")}
-                        /&gt;
-                    &lt;/Form.Group&gt;
-                &lt;/Col&gt;
-            &lt;/Row&gt;
+        &lt;Col&gt;
+          &lt;Form.Group className="mb-3"&gt;
+            &lt;Form.Label htmlFor="done"&gt;Done&lt;/Form.Label&gt;
+            &lt;Form.Check
+              data-testid={testIdPrefix + "-done"}
+              id="done"
+              type="checkbox"
+              {...register("done")}
+            /&gt;
+          &lt;/Form.Group&gt;
+        &lt;/Col&gt;
+      &lt;/Row&gt;
 &nbsp;
-            &lt;Row&gt;
-                &lt;Col&gt;
-                    &lt;Button type="submit" data-testid={testIdPrefix + "-submit"}&gt;
-                        {buttonLabel}
-                    &lt;/Button&gt;
-                    &lt;Button
-                        variant="Secondary"
-                        onClick={() =&gt; navigate(-1)}
-                        data-testid={testIdPrefix + "-cancel"}
-                    &gt;
-                        Cancel
-                    &lt;/Button&gt;
-                &lt;/Col&gt;
-            &lt;/Row&gt;
-        &lt;/Form&gt;
-    );
+      &lt;Row&gt;
+        &lt;Col&gt;
+          &lt;Button type="submit" data-testid={testIdPrefix + "-submit"}&gt;
+            {buttonLabel}
+          &lt;/Button&gt;
+          &lt;Button
+            variant="Secondary"
+            onClick={() =&gt; navigate(-1)}
+            data-testid={testIdPrefix + "-cancel"}
+          &gt;
+            Cancel
+          &lt;/Button&gt;
+        &lt;/Col&gt;
+      &lt;/Row&gt;
+    &lt;/Form&gt;
+  );
 }
 &nbsp;
-export default RecommendationRequestForm;</pre></td></tr></table></pre>
+export default RecommendationRequestForm;
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-10-28T00:18:22.774Z
+                at 2026-10-28T00:22:00.295Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
