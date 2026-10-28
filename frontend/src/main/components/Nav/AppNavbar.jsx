@@ -46,7 +46,7 @@ export default function AppNavbar({
           </Nav>
 
           <>
-            {/* be sure that each NavDropdown has a unique id and data-testid */}
+            {/* be sure that each NavDropdown has a unique id and data-testid  */}
           </>
 
           <Navbar.Collapse className="justify-content-between">
@@ -60,7 +60,6 @@ export default function AppNavbar({
                   <NavDropdown.Item href="/admin/users">Users</NavDropdown.Item>
                 </NavDropdown>
               )}
-
               {currentUser && currentUser.loggedIn ? (
                 <>
                   <Nav.Link as={Link} to="/restaurants">
@@ -71,12 +70,6 @@ export default function AppNavbar({
                   </Nav.Link>
                   <Nav.Link as={Link} to="/placeholder">
                     Placeholder
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/articles">
-                    Articles
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/diningcommonsmenuitem">
-                    Dining Commons Menu Items
                   </Nav.Link>
                 </>
               ) : (
