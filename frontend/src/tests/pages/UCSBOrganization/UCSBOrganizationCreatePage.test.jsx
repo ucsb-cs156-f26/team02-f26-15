@@ -122,7 +122,7 @@ describe("UCSBOrganizationCreatePage tests", () => {
     expect(mockToast).toBeCalledWith(
       "New UCSBOrganization Created - orgCode: SKY",
     );
-    expect(mockNavigate).toBeCalledWith({ to: "/ucsborganizations" });
+    expect(mockNavigate).toBeCalledWith({ to: "/ucsborganization" });
   });
 
   test("does not navigate away when storybook is true", async () => {
