@@ -11,7 +11,7 @@ Deployments:
 | Table                       | Team Member      | Github Id      |
 |-----------------------------|------------------|----------------|
 | `UCSBDiningCommonsMenuItem` | Leo Che          | LeoChe126      |
-| `UCSBOrganization`          | Haasini          | HaasiniY       |
+| `UCSBOrganization`          | Haasini Yakkala  | HaasiniY       |
 | `RecommendationRequest`     | Roland Cheng     | cheng-roland   |
 | `MenuItemReview`            | ChiDung Nguyen   | Supermonters   |
 | `HelpRequest`               | Siddharth Sharma | siddhrthsharma |
